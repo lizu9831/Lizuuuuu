@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cinematic Background</title>
+
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  background: black;
+  font-family: Arial;
+}
+
+/* ===== CITY LIGHTS BACKGROUND ===== */
+.city {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 60%;
+  background: radial-gradient(circle at bottom,
+    rgba(255, 200, 100, 0.15),
+    rgba(255, 150, 50, 0.08),
+    transparent 70%);
+  filter: blur(2px);
+  z-index: 1;
+}
+
+/* Building silhouettes */
+.buildings {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 40%;
+  background: linear-gradient(to top, #000 70%, transparent);
+  z-index: 2;
+}
+
+/* windows */
+.windows {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 40%;
+  background-image: 
+    radial-gradient(circle, rgba(255, 220, 120, 0.4) 2px, transparent 3px);
+  background-size: 20px 30px;
+  opacity: 0.4;
+  z-index: 3;
+}
+
+/* ===== RAIN ===== */
+.rain {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-image: url("https://i.imgur.com/R9X9v9v.png");
+  animation: rainMove 0.3s linear infinite;
+  opacity: 0.25;
+  z-index: 4;
+}
+
+@keyframes rainMove {
+  from { background-position: 0 0; }
+  to { background-position: -200px 500px; }
+}
+
+/* ===== LIGHTNING FLASH ===== */
+.flash {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: white;
+  opacity: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+@keyframes flashAnim {
+  0% { opacity: 0; }
+  10% { opacity: 0.8; }
+  20% { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+/* Content */
+.content {
+  position: relative;
+  z-index: 10;
+  color: white;
+  text-align: center;
+  top: 45%;
+  transform: translateY(-50%);
+}
+</style>
+</head>
+
+<body>
+
+<div class="city"></div>
+<div class="windows"></div>
+<div class="buildings"></div>
+<div class="rain"></div>
+<div class="flash" id="flash"></div>
+
+<div class="content">
+  <h1>🌧️ Storm City</h1>
+  <p>Cinematic Rain + Lightning Background</p>
+</div>
+
+<script>
+// Random lightning flashes
+function lightning() {
+  const flash = document.getElementById("flash");
+
+  flash.style.animation = "flashAnim 0.4s ease";
+
+  setTimeout(() => {
+    flash.style.animation = "";
+  }, 400);
+}
+
+// Random timing for realism
+setInterval(() => {
+  if (Math.random() > 0.7) {
+    lightning();
+  }
+}, 2000);
+</script>
+
+</body>
+</html>
